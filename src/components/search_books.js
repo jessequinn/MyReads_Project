@@ -20,8 +20,8 @@ class SearchBooks extends Component {
   };
 
   constructor(props) {
-      super(props)
-      props.onClearStates();
+    super(props);
+    props.onClearStates();
   }
 
   processQueryString = query => {
@@ -157,6 +157,7 @@ class SearchBooks extends Component {
     );
   };
 
+  // change time for debouncer
   search = _.debounce(query => {
     this.searchBooks(query);
   }, 300);

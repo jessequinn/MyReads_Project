@@ -23,7 +23,7 @@ class App extends Component {
     });
   }
 
-  isInDB = (id, response) => {
+  isShelved = (id, response) => {
     let foundBook = false;
     for (let shelf in response) {
       if (shelf.indexOf(id) !== -1) {
@@ -47,15 +47,15 @@ class App extends Component {
   changeBookshelf = (book, newShelf) => {
     BooksAPI.update(book, newShelf).then(response => {
       if (newShelf === "none") {
-        this.deleteBook(book, response);
+        this.removeBook(book, response);
       } else {
         this.moveBook(book, newShelf, response);
       }
     });
   };
 
-  deleteBook = (book, response) => {
-    if (!this.isInDB(book.id, response)) {
+  removeBook = (book, response) => {
+    if (!this.isShelved(book.id, response)) {
       book.shelf = "none";
       this.setState(prevState => ({
         shelvedBooks: prevState.shelvedBooks.filter(b => b.id !== book.id),
